@@ -22,11 +22,12 @@ type MazeLine struct {
 }
 
 type Maze struct {
-	Width    int
-	Height   int
-	Lines    []MazeLine
-	Entrance *MazeField
-	Exit     *MazeField
+	Width        int
+	Height       int
+	Lines        []MazeLine
+	CurrentField *MazeField
+	Entrance     *MazeField
+	Exit         *MazeField
 }
 
 func NewMaze(w, h int, f []MazeLine) Maze {

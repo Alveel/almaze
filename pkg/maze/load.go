@@ -57,6 +57,7 @@ func LoadMaze(mazeFile string) models.Maze {
 	maze.Entrance, maze.Exit = FindExits(maze)
 	log.Printf("Entrance: %dX/%dY", maze.Entrance.X, maze.Entrance.Y)
 	log.Printf("Exit: %dX/%dY", maze.Exit.X, maze.Exit.Y)
+	maze.CurrentField = maze.Entrance
 
 	return maze
 }

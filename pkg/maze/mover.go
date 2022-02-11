@@ -3,6 +3,8 @@ package maze
 import (
 	"almaze/pkg/models"
 	"fmt"
+	"log"
+	"strings"
 )
 
 const (
@@ -19,30 +21,47 @@ type MoveError struct {
 }
 
 func (e *MoveError) Error() string {
-	return fmt.Sprintf("Error moving %s", e.msg)
+	return fmt.Sprintf("Error moving: %s", e.msg)
 }
 
-func Move(maze models.Maze, cf models.MazeField, direction int) (models.MazeField, error) {
+//Move from given MazeField in Maze
+func Move(m models.Maze, direction int) (models.MazeField, error) {
+	cf := m.CurrentField
 	var tf models.MazeField
 
+	// Move in given direction
 	if direction == UP {
-		tf = maze.Lines[cf.Y-1].Fields[cf.X]
+		tf = m.Lines[cf.Y-1].Fields[cf.X]
+		log.Println("Moving up")
 	} else if direction == DOWN {
-		tf = maze.Lines[cf.Y+1].Fields[cf.X]
+		tf = m.Lines[cf.Y+1].Fields[cf.X]
+		log.Println("Moving down")
 	} else if direction == LEFT {
-		tf = maze.Lines[cf.Y].Fields[cf.X-1]
+		tf = m.Lines[cf.Y].Fields[cf.X-1]
+		log.Println("Moving left")
 	} else if direction == RIGHT {
-		tf = maze.Lines[cf.Y].Fields[cf.X+1]
+		tf = m.Lines[cf.Y].Fields[cf.X+1]
+		log.Println("Moving right")
 	}
 
-	if !tf.Wall {
-		return tf, nil
+	// Check for move validity
+	var reason strings.Builder
+	if tf.Wall {
+		reason.WriteString("hit wall")
+	}
+	if tf.Visited {
+		log.Println("Already visited")
 	}
 
-	moveError := &MoveError{
-		CurrentField: cf,
-		TargetField:  tf,
-		msg:          fmt.Sprintf("Failed moving from field X%d/Y%d to field X%d/Y%d (%s)", cf.X, cf.Y, tf.X, tf.Y, "hit wall"),
+	if reason.Len() > 0 {
+		// Create MoveError
+		moveError := &MoveError{
+			CurrentField: *cf,
+			TargetField:  tf,
+			msg:          fmt.Sprintf("Failed moving from field X%d/Y%d to field X%d/Y%d (reason: %s)", cf.X, cf.Y, tf.X, tf.Y, reason),
+		}
+		return *cf, moveError
 	}
-	return cf, moveError
+
+	return tf, nil
 }
