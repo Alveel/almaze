@@ -16,18 +16,23 @@ func NewMazeField(x, y int, wall bool) *MazeField {
 	return mf
 }
 
+type MazeLine struct {
+	X      int
+	Fields []MazeField
+}
+
 type Maze struct {
 	Width    int
 	Height   int
-	Fields   []MazeField
+	Lines    []MazeLine
 	Entrance *MazeField
 	Exit     *MazeField
 }
 
-func NewMaze(w, h int, f []MazeField) Maze {
+func NewMaze(w, h int, f []MazeLine) Maze {
 	maze := new(Maze)
 	maze.Width = w
 	maze.Height = h
-	maze.Fields = f
+	maze.Lines = f
 	return *maze
 }

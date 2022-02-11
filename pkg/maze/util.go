@@ -2,56 +2,45 @@ package maze
 
 import (
 	"almaze/pkg/models"
+	"fmt"
 	"log"
 )
 
-// TODO: clean this up, more code-reuse!
-// Interfaces how?
+func FindExits(maze models.Maze) (*models.MazeField, *models.MazeField) {
+	var exits []models.MazeField
 
-//FindEntrance tries to find the entrance on either the top-most row or left-most column.
-//If it cannot find the entrance, it panics.
-func FindEntrance(maze models.Maze) *models.MazeField {
-	for _, mf := range maze.Fields {
-		// Find entrance on X-axis
-		if mf.Y == 1 {
+	// Find exits on X-axis
+	// We can
+	horizontalWalls := [2]models.MazeLine{
+		maze.Lines[0],
+		maze.Lines[maze.Height-1],
+	}
+	for _, ml := range horizontalWalls {
+		for _, mf := range ml.Fields {
 			if !mf.Wall {
-				log.Printf("Entrance found on top border at X%d/Y%d", mf.X, mf.Y)
-				return &mf
-			}
-		}
-
-		// Find entrance on Y-axis
-		if mf.X == 1 {
-			if !mf.Wall {
-				log.Printf("Entrance found on left border at X%d/Y%d", mf.X, mf.Y)
-				return &mf
+				log.Printf("1Exit found at X%d/Y%d", mf.X, mf.Y)
+				exits = append(exits, mf)
 			}
 		}
 	}
 
-	panic("Entrance not found!")
-}
-
-//FindExit tries to find the exit on the bottom-most row or right-most column.
-//If it cannot find the exit, it panics.
-func FindExit(maze models.Maze) *models.MazeField {
-	for _, mf := range maze.Fields {
-		// Find exit on X-axis
-		if mf.Y == maze.Height {
-			if !mf.Wall {
-				log.Printf("Exit found on bottom border at X%d/Y%d", mf.X, mf.Y)
-				return &mf
-			}
-		}
-
-		// Find exit on Y-axis
-		if mf.X == maze.Width {
-			if !mf.Wall {
-				log.Printf("Exit found on right border at X%d/Y%d", mf.X, mf.Y)
-				return &mf
+	// Find exits on Y-axis
+	// First loop through all lines
+	for _, ml := range maze.Lines {
+		// Then loop through all the fields
+		for _, mf := range ml.Fields {
+			// If the field is at the left-most or right-most of the maze, and it's a wall, it's an exit.
+			if (mf.X == 1 || mf.X == maze.Width) && !mf.Wall {
+				log.Printf("2Exit found at X%d/Y%d", mf.X, mf.Y)
+				exits = append(exits, mf)
 			}
 		}
 	}
 
-	panic("Exit not found!")
+	exitCount := len(exits)
+	if exitCount != 2 {
+		panic(fmt.Sprintf("Expected 2 entrances/exits, found %d!", exitCount))
+	}
+
+	return &exits[0], &exits[1]
 }

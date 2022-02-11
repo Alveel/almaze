@@ -22,8 +22,8 @@ func LoadMaze(mazeFile string) models.Maze {
 		log.Fatalf("Failed loading maze file %s", mazeFile)
 	}
 
-	// Create empty []MazeField object
-	var mazeFields []models.MazeField
+	// Create empty []MazeLine object, which will be filled with MazeLine[MazeField]
+	var mazeLines []models.MazeLine
 
 	s := bufio.NewScanner(file)
 	// Parse maze line by line
@@ -34,25 +34,27 @@ func LoadMaze(mazeFile string) models.Maze {
 	// Scan each line
 	for s.Scan() {
 		curLine++
+		var ml models.MazeLine
 		// Find each rune/character in a line
 		data := []rune(s.Text())
 		curWidth := len(data)
 		for i := 0; i < curWidth; i++ {
 			// Create a new MazeField
 			mf := models.NewMazeField(i+1, curLine, isWall(data[i]))
-			mazeFields = append(mazeFields, *mf)
+			ml.Fields = append(ml.Fields, *mf)
 		}
 		// Find the maximum width of the maze
 		if maxWidth < curWidth {
 			maxWidth = curWidth
 		}
+
+		mazeLines = append(mazeLines, ml)
 	}
 
 	// Instantiate the maze
-	maze := models.NewMaze(maxWidth, curLine, mazeFields)
+	maze := models.NewMaze(maxWidth, curLine, mazeLines)
 	log.Printf("Maze width: %d, height: %d", maze.Width, maze.Height)
-	maze.Entrance = FindEntrance(maze)
-	maze.Exit = FindExit(maze)
+	maze.Entrance, maze.Exit = FindExits(maze)
 	log.Printf("Entrance: %dX/%dY", maze.Entrance.X, maze.Entrance.Y)
 	log.Printf("Exit: %dX/%dY", maze.Exit.X, maze.Exit.Y)
 

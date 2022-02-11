@@ -10,20 +10,25 @@ import (
 )
 
 var wallSymbol = "@"
+var visitedSymbol = "."
 
-func BuildMaze(maze models.Maze) string {
+func DrawMaze(maze models.Maze) string {
 	var sb strings.Builder
 
-	for _, mf := range maze.Fields {
-		if mf.Wall {
-			sb.WriteString(wallSymbol)
-		} else {
-			sb.WriteString(" ")
-		}
+	for _, ml := range maze.Lines {
+		for _, mf := range ml.Fields {
+			if mf.Wall {
+				sb.WriteString(wallSymbol)
+			} else if mf.Visited {
+				sb.WriteString(visitedSymbol)
+			} else {
+				sb.WriteString(" ")
+			}
 
-		// End of line reached
-		if mf.X == maze.Width {
-			sb.WriteString("\n")
+			// End of line reached
+			if mf.X == maze.Width {
+				sb.WriteString("\n")
+			}
 		}
 	}
 
@@ -31,10 +36,11 @@ func BuildMaze(maze models.Maze) string {
 }
 
 func Run() {
-	log.Printf("The current time is: %v\n", time.Now())
+	now := time.Now().Format("2006-01-02 15:04:05")
+	log.Printf("The current time is: %s\n", now)
 
 	//LoadMaze("maze.txt")
 	myMaze := LoadMaze("maze.txt")
-	mazeString := BuildMaze(myMaze)
+	mazeString := DrawMaze(myMaze)
 	fmt.Print(mazeString)
 }
