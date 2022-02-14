@@ -2,7 +2,6 @@ package maze
 
 import (
 	"fmt"
-	"log"
 	"strings"
 
 	"github.com/Alveel/almaze/v2/pkg/models"
@@ -31,28 +30,28 @@ func Move(m *models.Maze, p *models.Player, direction int) (*models.MazeField, e
 			reasons = append(reasons, "out of bounds")
 		} else {
 			tf = m.Lines[p.CurrentField.Y-1].Fields[p.CurrentField.X]
-			log.Println("Moving up")
+			//log.Println("Moving up")
 		}
 	} else if direction == DOWN {
-		if p.CurrentField.Y >= m.Height {
+		if p.CurrentField.Y+1 >= m.Height {
 			reasons = append(reasons, "out of bounds")
 		} else {
 			tf = m.Lines[p.CurrentField.Y+1].Fields[p.CurrentField.X]
-			log.Println("Moving down")
+			//log.Println("Moving down")
 		}
 	} else if direction == LEFT {
 		if p.CurrentField.X <= 0 {
 			reasons = append(reasons, "out of bounds")
 		} else {
 			tf = m.Lines[p.CurrentField.Y].Fields[p.CurrentField.X-1]
-			log.Println("Moving left")
+			//log.Println("Moving left")
 		}
 	} else if direction == RIGHT {
-		if p.CurrentField.X >= m.Width {
+		if p.CurrentField.X+1 >= m.Width {
 			reasons = append(reasons, "out of bounds")
 		} else {
 			tf = m.Lines[p.CurrentField.Y].Fields[p.CurrentField.X+1]
-			log.Println("Moving right")
+			//log.Println("Moving right")
 		}
 	}
 

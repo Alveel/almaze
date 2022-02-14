@@ -21,5 +21,5 @@ func main() {
 	//maze.DrawMaze(myMaze)
 	duration := time.Since(start)
 	log.Printf("The current time is: %s%s", time.Now().Format("2006-01-02 15:04:05"), maze.LineBreak)
-	log.Printf("Execution took %dns%s", duration.Microseconds(), maze.LineBreak)
+	log.Printf("Execution took %dns (%dms)%s", duration.Microseconds(), duration.Milliseconds(), maze.LineBreak)
 }

@@ -7,10 +7,10 @@ import (
 	"github.com/Alveel/almaze/v2/pkg/models"
 )
 
-func DrawMaze(maze models.Maze) {
+func DrawMaze(m models.Maze) {
 	var sb strings.Builder
 
-	for _, ml := range maze.Lines {
+	for _, ml := range m.Lines {
 		for _, mf := range ml.Fields {
 			if mf.Wall {
 				sb.WriteString(WallSymbol)
@@ -19,7 +19,7 @@ func DrawMaze(maze models.Maze) {
 			}
 
 			// End of line reached
-			if mf.X == maze.Width-1 {
+			if mf.X == m.Width-1 {
 				sb.WriteString(LineBreak)
 			}
 		}
@@ -27,3 +27,8 @@ func DrawMaze(maze models.Maze) {
 
 	fmt.Print(sb.String())
 }
+
+//func DrawRoute(m models.Maze, p models.Player) {
+//	var sb strings.Builder
+//
+//}

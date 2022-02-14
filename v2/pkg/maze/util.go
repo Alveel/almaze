@@ -7,6 +7,7 @@ import (
 	"github.com/Alveel/almaze/v2/pkg/models"
 )
 
+//FindExits find exits in the maze by looping over the outer rows, first horizontally, then vertically
 func FindExits(maze *models.Maze) (*models.MazeField, *models.MazeField) {
 	var exits []*models.MazeField
 
@@ -43,4 +44,14 @@ func FindExits(maze *models.Maze) (*models.MazeField, *models.MazeField) {
 	}
 
 	return exits[0], exits[1]
+}
+
+//AlreadyVisited check if the nf (new field) has already been visited.
+func AlreadyVisited(nf *models.MazeField, vf []*models.MazeField) bool {
+	for _, f := range vf {
+		if f == nf {
+			return true
+		}
+	}
+	return false
 }
