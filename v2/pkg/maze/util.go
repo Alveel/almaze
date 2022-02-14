@@ -7,11 +7,11 @@ import (
 	"github.com/Alveel/almaze/v2/pkg/models"
 )
 
-func FindExits(maze models.Maze) (models.MazeField, models.MazeField) {
-	var exits []models.MazeField
+func FindExits(maze *models.Maze) (*models.MazeField, *models.MazeField) {
+	var exits []*models.MazeField
 
 	// Find exits on Y-axis
-	horizontalWalls := [2]models.MazeLine{
+	horizontalWalls := [2]*models.MazeLine{
 		maze.Lines[0],
 		maze.Lines[maze.Height-1],
 	}

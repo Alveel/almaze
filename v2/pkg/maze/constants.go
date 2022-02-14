@@ -3,9 +3,10 @@ package maze
 const WallSymbol = "@"
 const VisitedSymbol = "."
 
+// Turn clockwise!
 const (
 	UP    int = 1
-	DOWN  int = 2
-	LEFT  int = 3
-	RIGHT int = 4
+	RIGHT int = 2
+	DOWN  int = 3
+	LEFT  int = 4
 )

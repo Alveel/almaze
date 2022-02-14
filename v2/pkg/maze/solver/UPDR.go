@@ -1,19 +1,19 @@
 package solver
 
 import (
-	"log"
-	"time"
-
 	"github.com/Alveel/almaze/v2/pkg/maze"
 	"github.com/Alveel/almaze/v2/pkg/models"
+	"log"
 )
 
-func ULDR(m models.Maze, p models.Player) {
+func ULDR(m *models.Maze, p *models.Player) {
 	solved := false
 	directions := []int{maze.UP, maze.LEFT, maze.DOWN, maze.RIGHT}
+	p.WalkedRoute = append(p.WalkedRoute, m.Entrance)
 
 	for !solved {
 		log.Printf("Current location: X%d/Y%d\n", p.CurrentField.X, p.CurrentField.Y)
+
 		if p.CurrentField == m.Exit {
 			solved = true
 			log.Println("Exit found!")
@@ -46,7 +46,5 @@ func ULDR(m models.Maze, p models.Player) {
 				break // break out of direction loop
 			}
 		}
-
-		time.Sleep(time.Second / 5)
 	}
 }

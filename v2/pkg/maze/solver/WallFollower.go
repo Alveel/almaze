@@ -7,14 +7,14 @@ import (
 	"github.com/Alveel/almaze/v2/pkg/models"
 )
 
-func WallFollower(m models.Maze, p models.Player) {
+func WallFollower(m *models.Maze, p *models.Player) {
 	solved := false
 	directions := []int{maze.UP, maze.LEFT, maze.DOWN, maze.RIGHT}
 	lastDirection := maze.UP
 
 	for !solved {
 		log.Printf("Current location: Y%d/Y%d\n", p.CurrentField.X, p.CurrentField.Y)
-		if p.CurrentField == m.Exit {
+		if &p.CurrentField == &m.Exit {
 			solved = true
 			log.Println("Exit found!")
 			break
