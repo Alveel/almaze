@@ -17,7 +17,7 @@ func NewMazeField(x, y int, wall bool) *MazeField {
 }
 
 type MazeLine struct {
-	X      int
+	Y      int
 	Fields []MazeField
 }
 

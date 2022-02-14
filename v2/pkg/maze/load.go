@@ -33,14 +33,14 @@ func LoadMaze(mazeFile string) models.Maze {
 
 	// Scan each line
 	for s.Scan() {
-		curLine++
 		var ml models.MazeLine
+		ml.Y = curLine
 		// Find each rune/character in a line
 		data := []rune(s.Text())
 		curWidth := len(data)
 		for i := 0; i < curWidth; i++ {
 			// Create a new MazeField
-			mf := models.NewMazeField(i+1, curLine, isWall(data[i]))
+			mf := models.NewMazeField(i, curLine, isWall(data[i]))
 			ml.Fields = append(ml.Fields, *mf)
 		}
 		// Find the maximum width of the maze
@@ -49,14 +49,15 @@ func LoadMaze(mazeFile string) models.Maze {
 		}
 
 		mazeLines = append(mazeLines, ml)
+		curLine++
 	}
 
 	// Instantiate the maze
 	maze := models.NewMaze(maxWidth, curLine, mazeLines)
-	log.Printf("Maze width: %d, height: %d", maze.Width, maze.Height)
+	log.Printf("Maze width: %d, height: %d, %s", maze.Width, maze.Height, LineBreak)
 	maze.Entrance, maze.Exit = FindExits(maze)
-	log.Printf("Entrance: %dX/%dY", maze.Entrance.X, maze.Entrance.Y)
-	log.Printf("Exit: %dX/%dY", maze.Exit.X, maze.Exit.Y)
+	log.Printf("Entrance: %dX/%dY%s", maze.Entrance.X, maze.Entrance.Y, LineBreak)
+	log.Printf("Exit: %dX/%dY%s", maze.Exit.X, maze.Exit.Y, LineBreak)
 	maze.CurrentField = maze.Entrance
 
 	return maze

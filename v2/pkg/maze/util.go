@@ -9,7 +9,7 @@ import (
 func FindExits(maze models.Maze) (*models.MazeField, *models.MazeField) {
 	var exits []models.MazeField
 
-	// Find exits on X-axis
+	// Find exits on Y-axis
 	// We can
 	horizontalWalls := [2]models.MazeLine{
 		maze.Lines[0],
@@ -18,7 +18,7 @@ func FindExits(maze models.Maze) (*models.MazeField, *models.MazeField) {
 	for _, ml := range horizontalWalls {
 		for _, mf := range ml.Fields {
 			if !mf.Wall {
-				log.Printf("1Exit found at X%d/Y%d", mf.X, mf.Y)
+				log.Printf("Exit found on horizontal wall at Y%d/Y%d", mf.X, mf.Y)
 				exits = append(exits, mf)
 			}
 		}
@@ -31,7 +31,7 @@ func FindExits(maze models.Maze) (*models.MazeField, *models.MazeField) {
 		for _, mf := range ml.Fields {
 			// If the field is at the left-most or right-most of the maze, and it's a wall, it's an exit.
 			if (mf.X == 1 || mf.X == maze.Width) && !mf.Wall {
-				log.Printf("2Exit found at X%d/Y%d", mf.X, mf.Y)
+				log.Printf("2Exit found on vertical wall at Y%d/Y%d", mf.X, mf.Y)
 				exits = append(exits, mf)
 			}
 		}
