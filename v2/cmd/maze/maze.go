@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/Alveel/almaze/v2/pkg/models"
 	"log"
 	"time"
 
 	"github.com/Alveel/almaze/v2/pkg/maze"
 	"github.com/Alveel/almaze/v2/pkg/maze/solver"
+	"github.com/Alveel/almaze/v2/pkg/models"
 )
 
 func main() {
