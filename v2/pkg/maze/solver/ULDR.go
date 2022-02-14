@@ -11,13 +11,14 @@ func ULDR(m *models.Maze, p *models.Player) {
 	directions := []int{maze.UP, maze.LEFT, maze.DOWN, maze.RIGHT}
 	p.WalkedRoute = append(p.WalkedRoute, m.Entrance)
 
+MazeLoop:
 	for !solved {
 		//log.Printf("Current location: X%d/Y%d\n", p.CurrentField.X, p.CurrentField.Y)
 
 		if p.CurrentField == m.Exit {
 			solved = true
 			log.Println("Exit found!")
-			break
+			break MazeLoop
 		}
 
 		// First try to move in the same direction as the player is already facing.
@@ -27,30 +28,31 @@ func ULDR(m *models.Maze, p *models.Player) {
 		} else {
 			p.WalkedRoute = append(p.WalkedRoute, nf)
 			p.CurrentField = nf
-			continue
+			continue MazeLoop
 		}
 
 		// Otherwise, try to move in other directions
+	DirectionLoop:
 		for _, direction := range directions {
 			// Skip if it's the direction Player is facing, because we already tried that.
 			if direction == p.FacingDirection {
-				continue
+				continue DirectionLoop
 			}
 			nf, err := maze.Move(m, p, direction)
 			if err != nil {
 				//log.Println(err.Error())
-				continue
+				continue DirectionLoop
 			}
 			if maze.AlreadyVisited(nf, p.WalkedRoute) {
 				//log.Printf("Current location: X%d/Y%d\n", p.CurrentField.X, p.CurrentField.Y)
 				//log.Printf("Already visited X%d/Y%d", nf.X, nf.Y)
-				continue
+				continue DirectionLoop
 			}
 
 			p.WalkedRoute = append(p.WalkedRoute, nf)
 			p.CurrentField = nf
 			p.FacingDirection = direction
-			break // break out of direction loop
+			continue MazeLoop
 		}
 	}
 }
