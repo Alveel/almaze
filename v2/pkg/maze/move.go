@@ -64,7 +64,7 @@ func Move(m models.Maze, p models.Player, direction int) (models.MazeField, erro
 		moveError := &MoveError{
 			CurrentField: p.CurrentField,
 			TargetField:  tf,
-			msg: fmt.Sprintf("Failed moving from field Y%d/Y%d to field Y%d/Y%d (reason: %s)",
+			msg: fmt.Sprintf("Failed moving from field X%d/Y%d to field X%d/Y%d (reason: %s)",
 				p.CurrentField.X, p.CurrentField.Y,
 				tf.X, tf.Y,
 				strings.Join(reasons, ", "),
