@@ -1,10 +1,11 @@
 package maze
 
 import (
-	"almaze/pkg/models"
 	"fmt"
 	"log"
 	"strings"
+
+	"github.com/Alveel/almaze/v2/pkg/models"
 )
 
 type MoveError struct {

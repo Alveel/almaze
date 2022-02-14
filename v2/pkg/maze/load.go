@@ -1,10 +1,11 @@
 package maze
 
 import (
-	"almaze/pkg/models"
 	"bufio"
 	"log"
 	"os"
+
+	"github.com/Alveel/almaze/v2/pkg/models"
 )
 
 func isWall(field rune) bool {

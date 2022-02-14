@@ -1,3 +1,3 @@
-module github.com/Alveel/almaze/v2 v2/go.mod
+module github.com/Alveel/almaze/v2
 
 go 1.17

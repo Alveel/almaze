@@ -1,9 +1,10 @@
 package maze
 
 import (
-	"almaze/pkg/models"
 	"fmt"
 	"strings"
+
+	"github.com/Alveel/almaze/v2/pkg/models"
 )
 
 func DrawMaze(maze models.Maze) {

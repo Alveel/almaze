@@ -1,9 +1,10 @@
 package maze
 
 import (
-	"almaze/pkg/models"
 	"fmt"
 	"log"
+
+	"github.com/Alveel/almaze/v2/pkg/models"
 )
 
 func FindExits(maze models.Maze) (*models.MazeField, *models.MazeField) {
