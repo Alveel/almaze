@@ -1,19 +1,17 @@
 package models
 
 type MazeField struct {
-	X       int
-	Y       int
-	Wall    bool
-	Visited bool
+	X    int
+	Y    int
+	Wall bool
 }
 
-func NewMazeField(x, y int, wall bool) *MazeField {
+func NewMazeField(x, y int, wall bool) MazeField {
 	mf := new(MazeField)
 	mf.X = x
 	mf.Y = y
 	mf.Wall = wall
-	mf.Visited = false
-	return mf
+	return *mf
 }
 
 type MazeLine struct {
@@ -22,12 +20,11 @@ type MazeLine struct {
 }
 
 type Maze struct {
-	Width        int
-	Height       int
-	Lines        []MazeLine
-	CurrentField *MazeField
-	Entrance     *MazeField
-	Exit         *MazeField
+	Width    int
+	Height   int
+	Lines    []MazeLine
+	Entrance MazeField
+	Exit     MazeField
 }
 
 func NewMaze(w, h int, f []MazeLine) Maze {
@@ -36,4 +33,17 @@ func NewMaze(w, h int, f []MazeLine) Maze {
 	maze.Height = h
 	maze.Lines = f
 	return *maze
+}
+
+type Player struct {
+	CurrentField    MazeField
+	FacingDirection int
+	WalkedRoute     []MazeField
+}
+
+func NewPlayer(mf MazeField, fd int) Player {
+	player := new(Player)
+	player.CurrentField = mf
+	player.FacingDirection = fd
+	return *player
 }

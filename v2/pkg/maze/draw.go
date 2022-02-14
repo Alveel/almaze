@@ -14,8 +14,6 @@ func DrawMaze(maze models.Maze) {
 		for _, mf := range ml.Fields {
 			if mf.Wall {
 				sb.WriteString(WallSymbol)
-			} else if mf.Visited {
-				sb.WriteString(VisitedSymbol)
 			} else {
 				sb.WriteString(" ")
 			}

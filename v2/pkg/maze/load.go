@@ -42,7 +42,7 @@ func LoadMaze(mazeFile string) models.Maze {
 		for i := 0; i < curWidth; i++ {
 			// Create a new MazeField
 			mf := models.NewMazeField(i, curLine, isWall(data[i]))
-			ml.Fields = append(ml.Fields, *mf)
+			ml.Fields = append(ml.Fields, mf)
 		}
 		// Find the maximum width of the maze
 		if maxWidth < curWidth {
@@ -59,7 +59,6 @@ func LoadMaze(mazeFile string) models.Maze {
 	maze.Entrance, maze.Exit = FindExits(maze)
 	log.Printf("Entrance: %dX/%dY%s", maze.Entrance.X, maze.Entrance.Y, LineBreak)
 	log.Printf("Exit: %dX/%dY%s", maze.Exit.X, maze.Exit.Y, LineBreak)
-	maze.CurrentField = maze.Entrance
 
 	return maze
 }
