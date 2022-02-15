@@ -22,4 +22,4 @@ It should be noted that I am not sure if this is the right away to go about this
 1. Install [go](https://go.dev)
 2. Clone this repo
 3. Open a terminal in the root of this project
-4. `go run`
+4. `go run .`
