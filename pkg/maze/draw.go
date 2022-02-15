@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Alveel/almaze/v2/pkg/models"
+	"github.com/Alveel/almaze/pkg/models"
 )
 
 func DrawMaze(m models.Maze) {

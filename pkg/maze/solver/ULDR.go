@@ -3,8 +3,8 @@ package solver
 import (
 	"log"
 
-	"github.com/Alveel/almaze/v2/pkg/maze"
-	"github.com/Alveel/almaze/v2/pkg/models"
+	"github.com/Alveel/almaze/pkg/maze"
+	"github.com/Alveel/almaze/pkg/models"
 )
 
 func ULDR(m *models.Maze, p *models.Player) {

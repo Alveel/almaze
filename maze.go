@@ -4,9 +4,9 @@ import (
 	"log"
 	"time"
 
-	"github.com/Alveel/almaze/v2/pkg/maze"
-	"github.com/Alveel/almaze/v2/pkg/maze/solver"
-	"github.com/Alveel/almaze/v2/pkg/models"
+	"github.com/Alveel/almaze/pkg/maze"
+	"github.com/Alveel/almaze/pkg/maze/solver"
+	"github.com/Alveel/almaze/pkg/models"
 )
 
 func main() {

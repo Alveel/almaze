@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/Alveel/almaze/v2/pkg/models"
+	"github.com/Alveel/almaze/pkg/models"
 )
 
 //FindExits find exits in the maze by looping over the outer rows, first horizontally, then vertically

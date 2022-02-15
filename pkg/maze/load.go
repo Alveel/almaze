@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/Alveel/almaze/v2/pkg/models"
+	"github.com/Alveel/almaze/pkg/models"
 )
 
 func isWall(field rune) bool {
