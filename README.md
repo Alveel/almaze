@@ -8,8 +8,9 @@ What better way to learn Go (and a lot of programming in general) than by creati
 - Handle backtracking
 - Learn different algorithms to solve a maze
 - Compare different algorithms
-- Learn and implement test suites
+- Learn and implement test suites (unit testing/TDD)
 - Generate its own mazes
+- Async/goroutines
 
 ## Status
 
