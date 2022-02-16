@@ -1,42 +1,69 @@
 package solver
 
 import (
-	"log"
-
 	"github.com/Alveel/almaze/pkg/maze"
 	"github.com/Alveel/almaze/pkg/models"
+	"log"
 )
 
 func WallFollower(m *models.Maze, p *models.Player) {
 	solved := false
 
+MazeLoop:
 	for !solved {
-		log.Printf("Current location: Y%d/Y%d\n", p.CurrentField.X, p.CurrentField.Y)
+		log.Printf("Current location: X%d/Y%d\n", p.CurrentField.X, p.CurrentField.Y)
 		if &p.CurrentField == &m.Exit {
 			solved = true
 			log.Println("Exit found!")
 			break
 		}
 
-		mover := maze.Mover{Maze: m, Player: p}
-		// First try to move in the same direction as last move.
-		//nf, err := maze.Move(m, p, lastDirection)
-		nf, err := mover.MoveStraight()
-		if err != nil {
-			// Otherwise, we try to move right!
-			nf, err := mover.MoveRight()
-			if err != nil {
-				log.Printf("Error moving right: %v", err.Error())
-			} else {
-				p.WalkedRoute = append(p.WalkedRoute, nf)
-				p.CurrentField = nf
-				// How to properly handle this? I already have some of this logic in the MoveDirection functions in move.go
-				//p.FacingDirection = p.FacingDirection
-			}
-		} else {
+		turner := maze.Turner{Maze: m, Player: p}
+
+		// The idea here is to always try to turn right and move forward.
+		// If that move is illegal, we turn back and move forwards.
+		// If that move is also illegal we turn left and move forwards.
+		turner.Player.FacingDirection = turner.TurnRight() // ^ => >
+		nf, err := maze.TryToMove(m, p)
+		if err == nil {
 			p.WalkedRoute = append(p.WalkedRoute, nf)
 			p.CurrentField = nf
-			continue
+			continue MazeLoop
+		} else {
+			p.FacingDirection = turner.TurnLeft() // > => ^
+			nf, err := maze.TryToMove(m, p)
+			if err == nil {
+				p.WalkedRoute = append(p.WalkedRoute, nf)
+				p.CurrentField = nf
+				continue MazeLoop
+			} else {
+				p.FacingDirection = turner.TurnLeft() // ^ => <
+				nf, err := maze.TryToMove(m, p)
+				if err == nil {
+					p.WalkedRoute = append(p.WalkedRoute, nf)
+					p.CurrentField = nf
+					continue MazeLoop
+				} else {
+					p.FacingDirection = turner.TurnLeft() // < => v
+					nf, err := maze.TryToMove(m, p)
+					if err == nil {
+						p.WalkedRoute = append(p.WalkedRoute, nf)
+						p.CurrentField = nf
+						continue MazeLoop
+					}
+				}
+			}
 		}
+
+		//for i := 0; i < 4; i++ {
+		//	nf, err := maze.TryToMove(m, p)
+		//	if err == nil {
+		//		p.WalkedRoute = append(p.WalkedRoute, nf)
+		//		p.CurrentField = nf
+		//		continue MazeLoop
+		//	}
+		//	turner.Player.FacingDirection = turner.TurnRight()
+		//}
+		log.Fatalf("Unable to move in any direction. Stuck.")
 	}
 }

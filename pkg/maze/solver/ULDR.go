@@ -23,7 +23,7 @@ MazeLoop:
 		}
 
 		// First try to move in the same direction as the player is already facing.
-		nf, err := maze.Move(m, p, p.FacingDirection)
+		nf, err := maze.TryToMove(m, p)
 		if err != nil {
 			//log.Println(err.Error())
 		} else {
@@ -39,7 +39,8 @@ MazeLoop:
 			if direction == p.FacingDirection {
 				continue DirectionLoop
 			}
-			nf, err := maze.Move(m, p, direction)
+			p.FacingDirection = direction
+			nf, err := maze.TryToMove(m, p)
 			if err != nil {
 				//log.Println(err.Error())
 				continue DirectionLoop
@@ -52,7 +53,6 @@ MazeLoop:
 
 			p.WalkedRoute = append(p.WalkedRoute, nf)
 			p.CurrentField = nf
-			p.FacingDirection = direction
 			continue MazeLoop
 		}
 	}
