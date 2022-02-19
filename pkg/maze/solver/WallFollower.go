@@ -24,46 +24,16 @@ MazeLoop:
 		// If that move is illegal, we turn back and move forwards.
 		// If that move is also illegal we turn left and move forwards.
 		turner.Player.FacingDirection = turner.TurnRight() // ^ => >
-		nf, err := maze.TryToMove(m, p)
-		if err == nil {
-			p.WalkedRoute = append(p.WalkedRoute, nf)
-			p.CurrentField = nf
-			continue MazeLoop
-		} else {
-			p.FacingDirection = turner.TurnLeft() // > => ^
+
+		for i := 0; i < 4; i++ {
 			nf, err := maze.TryToMove(m, p)
 			if err == nil {
 				p.WalkedRoute = append(p.WalkedRoute, nf)
 				p.CurrentField = nf
 				continue MazeLoop
-			} else {
-				p.FacingDirection = turner.TurnLeft() // ^ => <
-				nf, err := maze.TryToMove(m, p)
-				if err == nil {
-					p.WalkedRoute = append(p.WalkedRoute, nf)
-					p.CurrentField = nf
-					continue MazeLoop
-				} else {
-					p.FacingDirection = turner.TurnLeft() // < => v
-					nf, err := maze.TryToMove(m, p)
-					if err == nil {
-						p.WalkedRoute = append(p.WalkedRoute, nf)
-						p.CurrentField = nf
-						continue MazeLoop
-					}
-				}
 			}
+			turner.Player.FacingDirection = turner.TurnLeft()
 		}
-
-		//for i := 0; i < 4; i++ {
-		//	nf, err := maze.TryToMove(m, p)
-		//	if err == nil {
-		//		p.WalkedRoute = append(p.WalkedRoute, nf)
-		//		p.CurrentField = nf
-		//		continue MazeLoop
-		//	}
-		//	turner.Player.FacingDirection = turner.TurnRight()
-		//}
 		log.Fatalf("Unable to move in any direction. Stuck.")
 	}
 }
