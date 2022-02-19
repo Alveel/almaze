@@ -46,10 +46,10 @@ func FindExits(maze *models.Maze) (*models.MazeField, *models.MazeField) {
 	return exits[0], exits[1]
 }
 
-//AlreadyVisited check if the nf (new field) has already been visited.
-func AlreadyVisited(nf *models.MazeField, vf []*models.MazeField) bool {
+//AlreadyVisited check if the tf (target field) has already been visited.
+func AlreadyVisited(tf *models.MazeField, vf []*models.MazeField) bool {
 	for _, f := range vf {
-		if f == nf {
+		if f == tf {
 			return true
 		}
 	}

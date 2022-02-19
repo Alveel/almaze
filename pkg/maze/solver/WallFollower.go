@@ -12,7 +12,7 @@ func WallFollower(m *models.Maze, p *models.Player) {
 MazeLoop:
 	for !solved {
 		log.Printf("Current location: X%d/Y%d\n", p.CurrentField.X, p.CurrentField.Y)
-		if &p.CurrentField == &m.Exit {
+		if p.CurrentField == m.Exit {
 			solved = true
 			log.Println("Exit found!")
 			break

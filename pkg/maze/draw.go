@@ -10,6 +10,7 @@ import (
 func DrawMaze(m models.Maze) {
 	var sb strings.Builder
 
+	// TODO: draw visited fields
 	for _, ml := range m.Lines {
 		for _, mf := range ml.Fields {
 			if mf.Wall {
