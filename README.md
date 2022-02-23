@@ -6,15 +6,19 @@ What better way to learn Go (and a lot of programming in general) than by creati
 
 - Solve any 2D maze text file you throw at it
 - Handle backtracking
-- Learn different algorithms to solve a maze
+- Learn [different algorithms](http://www.astrolog.org/labyrnth/algrithm.htm#solve) to solve a maze
 - Compare different algorithms
 - Learn and implement test suites (unit testing/TDD)
-- Generate its own mazes
+- Generate mazes: [maze generation algorithms](http://www.astrolog.org/labyrnth/algrithm.htm#create)
 - Async/goroutines
+- Stack LIFO/Queue (FIFO)
+- Draw path taken
+- Animate steps taken
 
 ## Status
 
 - 2022-02-14 Can follow a linear path.
+- 2022-02-19 Can solve mazes that do not contain islands (wall follower algorithm).
 
 ## How to use
 
