@@ -16,6 +16,7 @@ func FindExits(maze *models.Maze) (*models.MazeField, *models.MazeField) {
 		maze.Lines[0],
 		maze.Lines[maze.Height-1],
 	}
+	// TODO: find way to prevent for-loop nesting
 	for _, ml := range horizontalWalls {
 		for _, mf := range ml.Fields {
 			if !mf.Wall {
@@ -26,6 +27,7 @@ func FindExits(maze *models.Maze) (*models.MazeField, *models.MazeField) {
 	}
 
 	// Find exits on Y-axis
+	// TODO: find way to prevent for-loop nesting
 	// First loop through all lines
 	for _, ml := range maze.Lines {
 		// Then loop through all the fields

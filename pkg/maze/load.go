@@ -30,30 +30,30 @@ func LoadMaze(mazeFile string) models.Maze {
 	// Parse maze line by line
 	s.Split(bufio.ScanLines)
 
-	curLine, maxWidth := 0, 0
+	currentLineNumber, maxWidth := 0, 0
 
 	// Scan each line
 	for s.Scan() {
 		var ml models.MazeLine
 		// Find each rune/character in a line
 		data := []rune(s.Text())
-		curWidth := len(data)
-		for i := 0; i < curWidth; i++ {
+		currentLineWidth := len(data)
+		for i := 0; i < currentLineWidth; i++ {
 			// Create a new MazeField
-			mf := models.NewMazeField(i, curLine, isWall(data[i]))
+			mf := models.NewMazeField(i, currentLineNumber, isWall(data[i]))
 			ml.Fields = append(ml.Fields, mf)
 		}
 		// Find the maximum width of the maze
-		if maxWidth < curWidth {
-			maxWidth = curWidth
+		if maxWidth < currentLineWidth {
+			maxWidth = currentLineWidth
 		}
 
 		mazeLines = append(mazeLines, &ml)
-		curLine++
+		currentLineNumber++
 	}
 
 	// Instantiate the maze
-	maze := models.NewMaze(maxWidth, curLine, mazeLines)
+	maze := models.NewMaze(maxWidth, currentLineNumber, mazeLines)
 	log.Printf("Maze width: %d, height: %d, %s", maze.Width, maze.Height, LineBreak)
 	maze.Entrance, maze.Exit = FindExits(&maze)
 	log.Printf("Entrance: %dX/%dY%s", maze.Entrance.X, maze.Entrance.Y, LineBreak)

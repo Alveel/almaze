@@ -28,11 +28,6 @@ type Turner struct {
 	Player *models.Player
 }
 
-//MoveStraight can just use the current FacingDirection of Player.
-func MoveStraight(m *models.Maze, p *models.Player) (*models.MazeField, error) {
-	return TryToMove(m, p)
-}
-
 // TurnLeft
 // Directions are clockwise as defined in constants.go, so moving left means going counterclockwise.
 // If we loop over (under?) the directions, wrap around. (Am I even using terminology that makes sense?)

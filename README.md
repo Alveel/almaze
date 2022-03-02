@@ -13,7 +13,7 @@ What better way to learn Go (and a lot of programming in general) than by creati
 - Async/goroutines
 - Stack LIFO/Queue (FIFO)
 - Draw path taken
-- Animate steps taken
+- Animate steps taken (as in, generate for example a gif or video)
 
 ## Status
 
@@ -21,8 +21,6 @@ What better way to learn Go (and a lot of programming in general) than by creati
 - 2022-02-19 Can solve mazes that do not contain islands (wall follower algorithm).
 
 ## How to use
-
-It should be noted that I am not sure if this is the right away to go about this...
 
 1. Install [go](https://go.dev)
 2. Clone this repo

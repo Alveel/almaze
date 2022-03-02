@@ -47,7 +47,7 @@ MazeLoop:
 			}
 			if maze.AlreadyVisited(nf, p.WalkedRoute) {
 				//log.Printf("Current location: X%d/Y%d\n", p.CurrentField.X, p.CurrentField.Y)
-				//log.Printf("Already visited X%d/Y%d", nf.X, nf.Y)
+				log.Printf("Already visited X%d/Y%d", nf.X, nf.Y)
 				continue DirectionLoop
 			}
 
